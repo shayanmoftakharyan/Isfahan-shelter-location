@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage[american]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman} % 1. Sets a font that knows Greek in text mode
+\usepackage{unicode-math} % 2. Allows Greek keys to work in math mode
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{ltablex}
+\keepXColumns
+
+\begin{document}
+\section*{Symbols}
+
+
+\subsection*{Sets}
+\begin{tabularx}{\textwidth}{| l | l | X |}
+\hline
+\textbf{Name} & \textbf{Domains} & \textbf{Description}\\
+\hline
+\endhead
+
+i & * & \\
+ip & * & \\
+k & * & \\
+\hline
+\end{tabularx}
+\subsection*{Parameters}
+\begin{tabularx}{\textwidth}{| l | l | X |}
+\hline
+\textbf{Name} & \textbf{Domains} & \textbf{Description}\\
+\hline
+\endhead
+
+P & i & \\
+T & i & \\
+A & i,ip & \\
+B & i,k & \\
+CapSub & k & \\
+\hline
+\end{tabularx}
+\subsection*{Variables}
+\begin{tabularx}{\textwidth}{| l | l | X |}
+\hline
+\textbf{Name} & \textbf{Domains} & \textbf{Description}\\
+\hline
+\endhead
+
+Y & i & \\
+x & i,ip & \\
+w & i,k & \\
+\hline
+\end{tabularx}
+\subsection*{Equations}
+\begin{tabularx}{\textwidth}{| l | l | X |}
+\hline
+\textbf{Name} & \textbf{Domains} & \textbf{Description}\\
+\hline
+\endhead
+
+demand\_cov & i & \\
+reach\_shelter & i,ip & \\
+reach\_subway & i,k & \\
+cap\_shelter & ip & \\
+cap\_subway & k & \\
+target\_risk\_rule & i & \\
+\hline
+\end{tabularx}
+\subsection*{Model Definition}
+\textbf{min} $\sum_{i} Y_{i}$\\
+\textbf{s.t.}
+\subsubsection*{demand\_cov$_{i}$}
+$
+\sum_{ip} x_{i,ip} + \sum_{k} w_{i,k} = P_{i}\hfill \forall i
+$
+\vspace{5pt}
+\hrule
+\subsubsection*{reach\_shelter$_{i,ip}$}
+$
+x_{i,ip} \leq P_{i} \cdot A_{i,ip}\hfill \forall i,ip
+$
+\vspace{5pt}
+\hrule
+\subsubsection*{reach\_subway$_{i,k}$}
+$
+w_{i,k} \leq P_{i} \cdot B_{i,k}\hfill \forall i,k
+$
+\vspace{5pt}
+\hrule
+\subsubsection*{cap\_shelter$_{ip}$}
+$
+\sum_{i} x_{i,ip} \leq 15000 \cdot Y_{ip}\hfill \forall ip
+$
+\vspace{5pt}
+\hrule
+\subsubsection*{cap\_subway$_{k}$}
+$
+\sum_{i} w_{i,k} \leq CapSub_{k}\hfill \forall k
+$
+\vspace{5pt}
+\hrule
+\subsubsection*{target\_risk\_rule$_{i}$}
+$
+Y_{i} \geq 0.25 \cdot T_{i}\hfill \forall i
+$
+\vspace{5pt}
+\hrule
+\begin{flalign*}
+&Y\in \mathbb{Z}_{+} ~ \forall i&\\
+&x\geq 0 ~ \forall i,ip&\\
+&w\geq 0 ~ \forall i,k&\\
+\end{flalign*}
+\end{document}
